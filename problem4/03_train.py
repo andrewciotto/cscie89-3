@@ -16,6 +16,8 @@ BATCH_SIZE = 32
 EPOCHS = 20
 LEARNING_RATE = 0.01
 SPLIT_SEED = 42
+SCRIPT_DIR = Path(__file__).resolve().parent
+MODEL_PATH = SCRIPT_DIR / "fashion_mnist_model.pth"
 
 
 def get_device():
@@ -117,8 +119,9 @@ def main():
             f"valid_accuracy={valid_accuracy:.4f}"
         )
 
-    with open("history.json", "w", encoding="utf-8") as history_file:
+    with (SCRIPT_DIR / "history.json").open(encoding="utf-8", mode="w") as history_file:
         json.dump(history, history_file, indent=2)
+    torch.save(model.state_dict(), MODEL_PATH)
 
     return history
 
