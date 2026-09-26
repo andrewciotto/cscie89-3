@@ -1,5 +1,7 @@
 """Train the FashionMNIST ImageClassifier and record epoch metrics."""
 
+import json
+
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, random_split
@@ -114,6 +116,9 @@ def main():
             f"train_accuracy={train_accuracy:.4f} "
             f"valid_accuracy={valid_accuracy:.4f}"
         )
+
+    with open("history.json", "w", encoding="utf-8") as history_file:
+        json.dump(history, history_file, indent=2)
 
     return history
 
